@@ -1,102 +1,192 @@
-import Image, { type ImageProps } from "next/image";
-import { Button } from "@repo/ui/button";
-import styles from "./page.module.css";
-
-type Props = Omit<ImageProps, "src"> & {
-  srcLight: string;
-  srcDark: string;
-};
-
-const ThemeImage = (props: Props) => {
-  const { srcLight, srcDark, ...rest } = props;
-
-  return (
-    <>
-      <Image {...rest} src={srcLight} className="imgLight" />
-      <Image {...rest} src={srcDark} className="imgDark" />
-    </>
-  );
-};
-
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <ThemeImage
-          className={styles.logo}
-          srcLight="turborepo-dark.svg"
-          srcDark="turborepo-light.svg"
-          alt="Turborepo logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>apps/docs/app/page.tsx</code>
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div style={styles.container}>
+      {/* Header */}
+      <header style={styles.header}>
+        <h1 style={styles.title}>tsrage</h1>
+        <p style={styles.subtitle}>Type-safe localStorage wrapper for TypeScript</p>
+        <code style={styles.installBadge}>npm install tsrage</code>
+      </header>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new/clone?demo-description=Learn+to+implement+a+monorepo+with+a+two+Next.js+sites+that+has+installed+three+local+packages.&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F4K8ZISWAzJ8X1504ca0zmC%2F0b21a1c6246add355e55816278ef54bc%2FBasic.png&demo-title=Monorepo+with+Turborepo&demo-url=https%3A%2F%2Fexamples-basic-web.vercel.sh%2F&from=templates&project-name=Monorepo+with+Turborepo&repository-name=monorepo-turborepo&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fturborepo%2Ftree%2Fmain%2Fexamples%2Fbasic&root-directory=apps%2Fdocs&skippable-integrations=1&teamSlug=vercel&utm_source=create-turbo"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://turborepo.com/docs?utm_source"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-        <Button appName="docs" className={styles.secondary}>
-          Open alert
-        </Button>
+      {/* Main Content */}
+      <main style={styles.main}>
+        {/* Quick Start */}
+        <section style={styles.section}>
+          <h2 style={styles.sectionTitle}>Quick Start</h2>
+          <pre style={styles.codeBlock}>
+            <code>{`import { TStorage } from 'tsrage';
+
+// Define your schema
+type UserSchema = {
+  username: string;
+  email: string;
+  theme: 'light' | 'dark';
+};
+
+// Create typed storage
+const storage = new TStorage<UserSchema>();
+
+// Type-safe operations
+storage.setItem('username', 'john_doe');
+storage.setItem('theme', 'dark');
+
+// Get with proper typing
+const user = storage.getItem('username'); // string | null
+
+// Check existence
+if (storage.IsExist('username')) {
+  console.log('User exists!');
+}
+
+// Remove or clear
+storage.removeItem('email');
+storage.clear();`}</code>
+          </pre>
+        </section>
+
+      
+
+        {/* API */}
+        <section style={styles.section}>
+          <h2 style={styles.sectionTitle}>API Reference</h2>
+          <div style={styles.apiList}>
+            <div style={styles.apiItem}>
+              <code style={styles.apiMethod}>setItem(key, value)</code>
+              <p style={styles.apiDescription}>Store a value with type checking</p>
+            </div>
+            <div style={styles.apiItem}>
+              <code style={styles.apiMethod}>getItem(key)</code>
+              <p style={styles.apiDescription}>Retrieve a value with proper typing</p>
+            </div>
+            <div style={styles.apiItem}>
+              <code style={styles.apiMethod}>removeItem(key)</code>
+              <p style={styles.apiDescription}>Remove a specific item from storage</p>
+            </div>
+            <div style={styles.apiItem}>
+              <code style={styles.apiMethod}>IsExist(key)</code>
+              <p style={styles.apiDescription}>Check if a key exists in storage</p>
+            </div>
+            <div style={styles.apiItem}>
+              <code style={styles.apiMethod}>clear()</code>
+              <p style={styles.apiDescription}>Remove all items from storage</p>
+            </div>
+          </div>
+        </section>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com/templates?search=turborepo&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://turborepo.com?utm_source=create-turbo"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to turborepo.com →
+
+      {/* Footer */}
+      <footer style={styles.footer}>
+        <p style={styles.footerText}>Made by jay</p>
+        <a href="https://www.npmjs.com/package/tsrage" target="_blank" rel="noopener noreferrer" style={styles.link}>
+          View on npm
         </a>
       </footer>
     </div>
   );
+}
+
+const styles = {
+  container: {
+    minHeight: '100vh',
+    backgroundColor: '#f8f9fa',
+    color: '#1a1a1a',
+  },
+  header: {
+    textAlign: 'center' as const,
+    padding: '80px 20px 60px',
+    backgroundColor: '#abdcf2',
+    color: '#000000',
+  },
+  title: {
+    fontSize: '3rem',
+    fontWeight: '500',
+    margin: '0',
+    letterSpacing: '-0.02em',
+  },
+  subtitle: {
+    fontSize: '1.3rem',
+    margin: '16px 0 32px',
+    fontWeight: '400',
+    opacity: 0.95,
+  },
+  installBadge: {
+    display: 'inline-block',
+    padding: '10px 24px',
+    backgroundColor: '#ffffff',
+    color: '#4a90e2',
+    borderRadius: '3px',
+    fontSize: '1rem',
+    fontWeight: '500',
+  },
+  main: {
+    maxWidth: '900px',
+    margin: '0 auto',
+    padding: '60px 20px',
+  },
+  section: {
+    marginBottom: '80px',
+  },
+  sectionTitle: {
+    fontSize: '2rem',
+    fontWeight: '600',
+    marginBottom: '24px',
+    color: '#2c3e50',
+  },
+  codeBlock: {
+    backgroundColor: '#2c3e50',
+    color: '#ecf0f1',
+    padding: '28px',
+    borderRadius: '3px',
+    overflow: 'auto',
+    fontSize: '0.95rem',
+    lineHeight: '1.7',
+  },
+  featureGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+    gap: '24px',
+  },
+  apiList: {
+    display: 'flex',
+    flexDirection: 'column' as const,
+    gap: '16px',
+  },
+  apiItem: {
+    padding: '10px 24px',
+    backgroundColor: '#ffffff',
+    borderLeft: '4px solid #4a90e2',
+    borderRadius: '3px',
+    boxShadow: '0 2px 6px rgba(0, 0, 0, 0.06)',
+  },
+  apiMethod: {
+    display: 'inline-block',
+    fontSize: '1.05rem',
+    fontWeight: '600',
+    color: '#4a90e2',
+    fontFamily: 'monospace',
+    marginBottom: '8px',
+  },
+  apiDescription: {
+    fontSize: '0.95rem',
+    color: '#7f8c8d',
+    margin: '0',
+    lineHeight: '1.5',
+  },
+  footer: {
+    textAlign: 'center' as const,
+    padding: '40px 20px',
+    backgroundColor: '#ffffff',
+    borderTop: '1px solid #e5e7eb',
+  },
+  footerText: {
+    margin: '0 0 12px 0',
+    color: '#7f8c8d',
+    fontSize: '0.95rem',
+  },
+  link: {
+    color: '#4a90e2',
+    textDecoration: 'none',
+    fontWeight: '500',
+    fontSize: '0.95rem',
+  },
 }
