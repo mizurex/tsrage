@@ -34,7 +34,7 @@ storage.setItem('theme', 'dark');
 const user = storage.getItem('username'); // string | null
 
 // Check existence
-if (storage.IsExist('username')) {
+if (storage.hasItem('username')) {
   console.log('User exists!');
 }
 
@@ -63,7 +63,7 @@ storage.clear();`}</code>
               <p style={styles.apiDescription}>Remove a specific item from storage</p>
             </div>
             <div style={styles.apiItem}>
-              <code style={styles.apiMethod}>IsExist(key)</code>
+              <code style={styles.apiMethod}>hasItem(key)</code>
               <p style={styles.apiDescription}>Check if a key exists in storage</p>
             </div>
             <div style={styles.apiItem}>

@@ -31,7 +31,7 @@ storage.setItem('age',20);
 const name = storage.getItem('name'); // string | null
 
 // Check if key exists
-if (storage.IsExist('name')) {
+if (storage.hasItem('name')) {
   console.log('Name is stored!');
 }
 
@@ -59,7 +59,7 @@ Creates a new typed storage instance.
 - **`removeItem<K>(key: K): void`**  
   Removes a specific item.
 
-- **`IsExist<K>(key: K): boolean`**  
+- **`hasItem<K>(key: K): boolean`**  
   Checks if a key exists in storage.
 
 - **`clear(): void`**  
